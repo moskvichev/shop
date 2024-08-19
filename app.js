@@ -1,5 +1,15 @@
-let app = [1, 2, 'hello', 4, 5, 6];
-console.log(app.length);
-for (let i = 0; i <= app.length; i++) {
-  console.log(app[i]);
-}
+const http = require('http');
+
+//http.createServer().listen(3000);
+http
+  .createServer(function (request, response) {
+    console.log(request.url);
+    console.log(request.headers['user-agent']);
+    response.setHeader('Content-Type');
+    if (request.url == '/') {
+      response.end('Main');
+    } else if (request.url == '/cat') {
+      response.end('Category');
+    }
+  })
+  .listen(3000);
