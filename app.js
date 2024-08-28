@@ -49,10 +49,10 @@ let con = mysql.createConnection({
   database: 'market',
 });
 
-con.connect(function (err) {
-  if (err) throw err;
-  console.log('Connected');
-});
+// con.connect(function (err) {
+//   if (err) throw err;
+//   console.log('Connected');
+// });
 
 app.listen(3000, function () {
   console.log('node express work on 3000');
@@ -62,10 +62,16 @@ app.get('/', function (req, res) {
   con.query('SELECT * FROM goods', function (error, result) {
     if (error) throw error;
     console.log(result);
-  });
-  res.render('main', {
-    foo: 4,
-    bar: 7,
+    let goods = {};
+    for (let i = 0; i < result.length; i++) {
+      goods[result[i]['id']] = result[i];
+    }
+    console.log(JSON.parse(JSON.stringify(goods)));
+    res.render('main', {
+      foo: 'Hello',
+      bar: 7,
+      goods: JSON.parse(JSON.stringify(goods)),
+    });
   });
 });
 
