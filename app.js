@@ -32,12 +32,37 @@ app.use(express.static('public'));
  */
 app.set('view engine', 'pug');
 
+/**
+ * подключение mysql
+ */
+
+let mysql = require('mysql');
+
+/**
+ * настраиваем модуль
+ */
+
+let con = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: '123456',
+  database: 'market',
+});
+
+con.connect(function (err) {
+  if (err) throw err;
+  console.log('Connected');
+});
+
 app.listen(3000, function () {
   console.log('node express work on 3000');
 });
 
 app.get('/', function (req, res) {
-  console.log('load /');
+  con.query('SELECT * FROM goods', function (error, result) {
+    if (error) throw error;
+    console.log(result);
+  });
   res.render('main', {
     foo: 4,
     bar: 7,
