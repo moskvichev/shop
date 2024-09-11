@@ -42,7 +42,7 @@ let mysql = require('mysql');
  * настраиваем модуль
  */
 
-let con = mysql.createConnection({
+let con = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: '123456',
@@ -76,5 +76,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/cat', function (req, res) {
-  res.end('cat');
+  console.log(req.query.id);
+  let catId = req.query.id;
+  res.render('cat', {});
+  con.query('SELECT * FROM category WHERE id = ' + catId, function (error, result) {
+    if (error) throw error;
+    console.log(JSON.parse(JSON.stringify(result)));
+  });
 });
