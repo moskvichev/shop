@@ -75,6 +75,11 @@ app.get('/', function (req, res) {
   });
 });
 
+/**
+ * страница категории
+ *
+ */
+
 app.get('/cat', function (req, res) {
   console.log(req.query.id);
   let catId = req.query.id;
@@ -83,4 +88,5 @@ app.get('/cat', function (req, res) {
     if (error) throw error;
     console.log(JSON.parse(JSON.stringify(result)));
   });
+  let cat = new Promise(function (resolve, reject) {});
 });
