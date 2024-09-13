@@ -84,9 +84,17 @@ app.get('/cat', function (req, res) {
   console.log(req.query.id);
   let catId = req.query.id;
   res.render('cat', {});
-  con.query('SELECT * FROM category WHERE id = ' + catId, function (error, result) {
-    if (error) throw error;
-    console.log(JSON.parse(JSON.stringify(result)));
+
+  let cat = new Promise(function (resolve, reject) {
+    con.query('SELECT * FROM category WHERE id = ' + catId, function (error, result) {
+      if (error) reject(err);
+      resolve(result));
+    });
+
+  let goods = new Promise(function(resolve, reject) {
+    con.query('SELECT * FROM goods WHERE category = ' + catId, function (error, result) {
+      if (error) reject(err);
+      resolve(result));
+  })
   });
-  let cat = new Promise(function (resolve, reject) {});
 });
