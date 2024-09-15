@@ -83,7 +83,7 @@ app.get('/', function (req, res) {
 app.get('/cat', function (req, res) {
   console.log(req.query.id);
   let catId = req.query.id;
-  res.render('cat', {});
+  // res.render('cat', {});
 
   let cat = new Promise(function (resolve, reject) {
     con.query('SELECT * FROM category WHERE id = ' + catId, function (error, result) {
@@ -98,10 +98,12 @@ app.get('/cat', function (req, res) {
       resolve(result);
     });
   });
+
   Promise.all([cat, goods]).then(function (value) {
     console.log(value[1]);
     res.render('cat', {
-      foo: 'hell',
+      cat: JSON.parse(JSON.stringify(value[0])),
+      goods: JSON.parse(JSON.stringify(value[1])),
     });
   });
 });
