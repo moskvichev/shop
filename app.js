@@ -1,24 +1,3 @@
-// const http = require('http');
-// const fs = require('fs');
-
-//http.createServer().listen(3000);
-// http
-//   .createServer(function (request, response) {
-//     console.log(request.url);
-//     console.log(request.headers['user-agent']);
-//     response.setHeader('Content-Type', 'text/html; charset=utf-8;');
-//     if (request.url == '/') {
-//       response.end('Main');
-//     } else if (request.url == '/cat') {
-//       response.end('Category <h1>Welcome to the shop</h1>');
-//     } else if (request.url == '/dat') {
-//       let myFile = fs.readFileSync('1.dat');
-//       console.log(myFile);
-//       response.end(myFile);
-//     }
-//   })
-//   .listen(3000);
-
 let express = require('express');
 let app = express();
 /**
@@ -48,11 +27,6 @@ let con = mysql.createPool({
   password: '123456',
   database: 'market',
 });
-
-// con.connect(function (err) {
-//   if (err) throw err;
-//   console.log('Connected');
-// });
 
 app.listen(3000, function () {
   console.log('node express work on 3000');
