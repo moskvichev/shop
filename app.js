@@ -89,3 +89,11 @@ app.get('/goods', function (req, res) {
     res.render('goods', { goods: JSON.parse(JSON.stringify(result)) });
   });
 });
+
+app.post('/get-category-list', function (req, res) {
+  con.query('SELECT id, category FROM category', function (error, result, fields) {
+    if (error) throw error;
+    console.log(result);
+    res.json(result);
+  });
+});
