@@ -97,3 +97,11 @@ app.post('/get-category-list', function (req, res) {
     res.json(result);
   });
 });
+
+app.post('/get-goods-info', function (req, res) {
+  con.query('SELECT id, category FROM category', function (error, result, fields) {
+    if (error) throw error;
+    console.log(result);
+    res.json(result);
+  });
+});

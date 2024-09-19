@@ -80,6 +80,8 @@ ul.category-list {
   list-style-type: disc;
 }
 
-ul.category-list a {
-  color: 424242px;
+ul.category-list a,
+li {
+  color: #424242;
+  text-align: left;
 }
