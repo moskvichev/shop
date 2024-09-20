@@ -20,6 +20,7 @@ let mysql = require('mysql');
 /**
  * настраиваем модуль
  */
+app.use(express.json());
 
 let con = mysql.createPool({
   host: 'localhost',
@@ -99,9 +100,10 @@ app.post('/get-category-list', function (req, res) {
 });
 
 app.post('/get-goods-info', function (req, res) {
-  con.query('SELECT id, category FROM category', function (error, result, fields) {
-    if (error) throw error;
-    console.log(result);
-    res.json(result);
-  });
+  console.log(req.body);
+  // con.query('SELECT id, category FROM category', function (error, result, fields) {
+  //   if (error) throw error;
+  //   console.log(result);
+  //   res.json(result);
+  // });
 });
