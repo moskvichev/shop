@@ -101,9 +101,9 @@ app.post('/get-category-list', function (req, res) {
 
 app.post('/get-goods-info', function (req, res) {
   console.log(req.body);
-  // con.query('SELECT id, category FROM category', function (error, result, fields) {
-  //   if (error) throw error;
-  //   console.log(result);
-  //   res.json(result);
-  // });
+  con.query('SELECT id, category FROM category', function (error, result, fields) {
+    if (error) throw error;
+    console.log(result);
+    res.json(result);
+  });
 });
