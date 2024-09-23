@@ -100,10 +100,13 @@ app.post('/get-category-list', function (req, res) {
 });
 
 app.post('/get-goods-info', function (req, res) {
-  console.log(req.body);
-  con.query('SELECT id, category FROM category', function (error, result, fields) {
-    if (error) throw error;
-    console.log(result);
-    res.json(result);
-  });
+  console.log(req.body.key);
+  con.query(
+    'SELECT id, name, cost FROM goods WHERE id IN (' + req.body.key.join(',') + ')',
+    function (error, result, fields) {
+      if (error) throw error;
+      console.log(result);
+      res.json(result);
+    },
+  );
 });

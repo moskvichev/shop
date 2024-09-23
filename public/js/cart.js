@@ -19,7 +19,7 @@ function ajaxGetGoodsInfo() {
   fetch('/get-goods-info', {
     method: 'POST',
     body: JSON.stringify({ key: Object.keys(cart) }),
-    header: {
+    headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
