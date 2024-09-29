@@ -44,5 +44,5 @@ function showCart(data) {
     out += `</tr>`;
   }
   out += '</tbody></table>';
-  document.querySelector('#cart-nav').innerHTML = out;
+  document.querySelector('#cart-nav').innerHTML = ;
 }
