@@ -34,18 +34,26 @@ app.listen(3000, function () {
 });
 
 app.get('/', function (req, res) {
-  con.query('SELECT * FROM goods', function (error, result) {
-    if (error) throw error;
-    console.log(result);
-    let goods = {};
-    for (let i = 0; i < result.length; i++) {
-      goods[result[i]['id']] = result[i];
-    }
-    console.log(JSON.parse(JSON.stringify(goods)));
-    res.render('main', {
-      foo: 'Hello',
-      bar: 7,
-      goods: JSON.parse(JSON.stringify(goods)),
+  let cat = new Promise(function (resolve, reject) {
+    con.query(
+      "select id,name, cost, image, category from (select id,name,cost,image,category, if(if(@curr_category != category, @curr_category := category, '') != '', @k := 0, @k := @k + 1) as ind   from goods, ( select @curr_category := '' ) v ) goods where ind < 3",
+      function (error, result, field) {
+        if (error) return reject(error);
+        resolve(result);
+      },
+    );
+  });
+  let catDescription = new Promise(function (resolve, reject) {
+    con.query('SELECT * FROM category', function (error, result, field) {
+      if (error) return reject(error);
+      resolve(result);
+    });
+  });
+  Promise.all([cat, catDescription]).then(function (value) {
+    console.log(value[0]);
+    res.render('index', {
+      goods: JSON.parse(JSON.stringify(value[0])),
+      cat: JSON.parse(JSON.stringify(value[1])),
     });
   });
 });
