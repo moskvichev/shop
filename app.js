@@ -99,6 +99,10 @@ app.get('/goods', function (req, res) {
   });
 });
 
+app.get('/order', function (req, res) {
+  res.render('order');
+});
+
 app.post('/get-category-list', function (req, res) {
   con.query('SELECT id, category FROM category', function (error, result, fields) {
     if (error) throw error;
