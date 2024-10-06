@@ -1,25 +1,25 @@
 document.querySelector('#lite-shop-order').onsubmit = function (event) {
   event.preventDefault();
-  let userName = document.querySelector('#username').ariaValueMax.trim();
-  let phone = document.querySelector('#uphone').ariaValueMax.trim();
-  let email = document.querySelector('#email').ariaValueMax.trim();
-  let address = document.querySelector('#address').ariaValueMax.trim();
+  let username = document.querySelector('#username').value.trim();
+  let phone = document.querySelector('#phone').value.trim();
+  let email = document.querySelector('#email').value.trim();
+  let address = document.querySelector('#address').value.trim();
 
   if (!document.querySelector('#rule').checked) {
     //с правилами не согласен
   }
 
-  if (userName == '' || phone == '' || email == '' || address == '') {
+  if (username == '' || phone == '' || email == '' || address == '') {
     // не заполнены поля
   }
 
   fetch('/finish-order', {
     method: 'POST',
     body: JSON.stringify({
-      userName: userName,
+      username: username,
       phone: phone,
       email: email,
-      adddress: adddress,
+      address: address,
       key: JSON.parse(localStorage.getItem('cart')),
     }),
     headers: {
