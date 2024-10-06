@@ -129,3 +129,8 @@ app.post('/get-goods-info', function (req, res) {
     res.send('0');
   }
 });
+
+app.post('/finish-order', function (req, res) {
+  console.log(req.body);
+  res.send('1');
+});
