@@ -62,4 +62,3 @@ document.querySelector('#lite-shop-order').onsubmit = function (event) {
       }
     });
 };
-//
