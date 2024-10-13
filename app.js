@@ -10,6 +10,7 @@ app.use(express.static('public'));
  *
  */
 app.set('view engine', 'pug');
+const nodemailer = require('nodemailer');
 
 /**
  * подключение mysql
@@ -147,4 +148,44 @@ app.post('/finish-order', function (req, res) {
   }
 });
 
-function sendMail(data, result) {}
+async function sendMail(data, result) {
+  let res = '<h2>Order in lite shop</h2>';
+  let total = 0;
+  for (let i = 0; i < result.length; i++) {
+    res += `<p>${result[i]['name']} - ${data.key[result[i]['id']]} - ${
+      result[i]['cost'] * data.key[result[i]['id']]
+    } uah</p>`;
+    total += result[i]['cost'] * data.key[result[i]['id']];
+  }
+  console.log(res);
+  res += '<hr>';
+  res += `Total ${total} uah`;
+  res += `<hr>Phone: ${data.phone}`;
+  res += `<hr>Username: ${data.username}`;
+  res += `<hr>Address: ${data.address}`;
+  res += `<hr>Email: ${data.email}`;
+
+  const testAccount = await nodemailer.createTestAccount();
+
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.ethereal.email',
+    port: 587,
+    secure: false, // true for port 465, false for other ports
+    auth: {
+      user: 'maddison53@ethereal.email',
+      pass: 'jn7jnAPss4f63QBp6D',
+    },
+  });
+
+  let mailOption = {
+    form: '<moskvichev_e@bk.ru>',
+    to: 'moskvichev_e@bk.ru,' + data.email,
+    subject: 'Lite shop order',
+    text: 'Hello world',
+    html: res,
+  };
+  let info = await transporter.sendMail(mailOption);
+  console.log('MessageSent: %s', info.messageId);
+  console.log('PreviewSent: %s', nodemailer.getTestMessageUrl(info));
+  return true;
+}
