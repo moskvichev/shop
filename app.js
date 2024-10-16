@@ -154,7 +154,7 @@ async function sendMail(data, result) {
   for (let i = 0; i < result.length; i++) {
     res += `<p>${result[i]['name']} - ${data.key[result[i]['id']]} - ${
       result[i]['cost'] * data.key[result[i]['id']]
-    } uah</p>`;
+    } uah</p>}`;
     total += result[i]['cost'] * data.key[result[i]['id']];
   }
   console.log(res);
