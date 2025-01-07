@@ -181,7 +181,7 @@ async function sendMail(data, result) {
     form: '<moskvichev_e@bk.ru>',
     to: 'moskvichev_e@bk.ru,' + data.email,
     subject: 'Lite shop order',
-    text: 'Hello world',
+    text: 'Hello worl',
     html: res,
   };
   let info = await transporter.sendMail(mailOption);
