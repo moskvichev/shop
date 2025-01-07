@@ -10,25 +10,29 @@ app.use(express.static('public'));
  *
  */
 app.set('view engine', 'pug');
-const nodemailer = require('nodemailer');
-
-/**
- * подключение mysql
- */
 
 let mysql = require('mysql');
 
 /**
  * настраиваем модуль
  */
+
 app.use(express.json());
 
-let con = mysql.createPool({
+const nodemailer = require('nodemailer');
+
+/**
+ * подключение mysql
+ */
+
+let con = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '123456',
   database: 'market',
 });
+
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 app.listen(3000, function () {
   console.log('node express work on 3000');
@@ -140,6 +144,7 @@ app.post('/finish-order', function (req, res) {
       function (error, result, fields) {
         if (error) throw error;
         sendMail(req.body, result).catch(console.error);
+        saveOrder(req.body, result);
         res.send('1');
       },
     );
@@ -147,6 +152,24 @@ app.post('/finish-order', function (req, res) {
     res.send('1');
   }
 });
+
+function saveOrder(data, result) {
+  // дата   - информация о пользователе
+  // резалт - сведения о товаре
+  let sql;
+  sql =
+    'INSERT INTO user_info (user_name, user_phone, user_email, address) VALUES (`' +
+    data.username +
+    '`,`' +
+    data.phone +
+    '`,`' +
+    data.address +
+    '`)';
+  con.query(sql, function (error, result) {
+    // if (error) throw error;
+    console.log('I user info saved');
+  });
+}
 
 async function sendMail(data, result) {
   let res = '<h2>Order in lite shop</h2>';
