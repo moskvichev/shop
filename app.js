@@ -32,7 +32,7 @@ let con = mysql.createConnection({
   database: 'market',
 });
 
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+// process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 app.listen(3000, function () {
   console.log('node express work on 3000');
@@ -41,7 +41,7 @@ app.listen(3000, function () {
 app.get('/', function (req, res) {
   let cat = new Promise(function (resolve, reject) {
     con.query(
-      "select id,name, cost, image, category from (select id,name,cost,image,category, if(if(@curr_category != category, @curr_category := category, '') != '', @k := 0, @k := @k + 1) as ind   from goods, ( select @curr_category := '' ) v ) goods where ind < 3",
+      "SELECT id, name, cost, image, category FROM (SELECT id, name, cost, image, category, if(if(@curr_category != category, @curr_category := category, '') != '', @k := 0, @k := @k + 1) as id FROM goods, ( SELECT @curr_category := '' ) v ) goods WHERE id < 3",
       function (error, result, field) {
         if (error) return reject(error);
         resolve(result);
@@ -149,7 +149,7 @@ app.post('/finish-order', function (req, res) {
       },
     );
   } else {
-    res.send('1');
+    res.send('0');
   }
 });
 
@@ -163,10 +163,14 @@ function saveOrder(data, result) {
     '`,`' +
     data.phone +
     '`,`' +
+    data.email +
+    '`,`' +
     data.address +
     '`)';
   con.query(sql, function (error, result) {
-    // if (error) throw error;
+    if (error) {
+      console.log(error);
+    }
     console.log('I user info saved');
   });
 }
