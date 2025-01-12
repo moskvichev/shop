@@ -26,7 +26,7 @@ let con = mysql.createConnection({
   database: 'market',
 });
 
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 1;
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 app.listen(3000, function () {
   console.log('node express work on 3000');
