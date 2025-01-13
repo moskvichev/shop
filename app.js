@@ -211,8 +211,8 @@ async function sendMail(data, result) {
   });
 
   let mailOption = {
-    from: '<luschenko@gmail.com>',
-    to: 'luschenko@gmail.com,' + data.email,
+    from: '<moskvichev_e@bk.ru>',
+    to: 'moskvichev_e@bk.ru,' + data.email,
     subject: 'Lite shop order',
     text: 'Hello world',
     html: res,
