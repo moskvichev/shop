@@ -143,6 +143,17 @@ app.post('/finish-order', function (req, res) {
   }
 });
 
+app.get('/admin', function (req, res) {
+  res.render('admin', {});
+});
+
+app.get('/admin-order', function (req, res) {
+  con.query('SELECT * FROM shop_order', function (error, result, fields) {
+    if (error) throw error;
+    res.render('admin-order', { order: JSON.parse(JSON.stringify(result)) });
+  });
+});
+
 function saveOrder(data, result) {
   let sql;
   sql =
