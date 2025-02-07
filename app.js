@@ -148,7 +148,7 @@ app.get('/admin', function (req, res) {
 });
 
 app.get('/admin-order', function (req, res) {
-  con.query('SELECT * FROM shop_order', function (error, result, fields) {
+  con.query('SELECT * FROM shop_order ORDER BY id DESC', function (error, result, fields) {
     if (error) throw error;
     res.render('admin-order', { order: JSON.parse(JSON.stringify(result)) });
   });
