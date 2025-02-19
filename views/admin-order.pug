@@ -1,5 +1,20 @@
 h1 Admin-panel 
 h2 Order-information
-
-each val, index in order
- p #{val['id']}     
+table
+ th 
+  td id
+  td date 
+  td userId 
+  td goodsId 
+  td Goods Cost 
+  td Goods Amount 
+  td Total
+ each val, index in order
+  tr 
+   td #{val['id']}
+   td #{val['date']}
+   td #{val['user_id']}
+   td #{val['goods_id']}
+   td #{val['goods_cost']}
+   td #{val['goods_amount']}
+   td #{val['total']}     

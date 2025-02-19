@@ -225,7 +225,7 @@ async function sendMail(data, result) {
     from: '<moskvichev_e@bk.ru>',
     to: 'moskvichev_e@bk.ru,' + data.email,
     subject: 'Lite shop order',
-    text: 'Hello worl',
+    text: 'Hello world',
     html: res,
   };
 
