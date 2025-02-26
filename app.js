@@ -173,6 +173,10 @@ ON shop_order.user_id = user_info.id ORDER BY id DESC`,
   );
 });
 
+app.get('/login', function (req, res) {
+  res.render('login', {});
+});
+
 function saveOrder(data, result) {
   // data - информация о пользователе
   // result - сведения о товаре
